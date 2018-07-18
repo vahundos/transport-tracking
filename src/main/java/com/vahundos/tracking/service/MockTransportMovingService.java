@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @Service
 public class MockTransportMovingService implements TransportMovingService {
 
-    private static final double MOVING_STEP = 0.001;
+    static final double MOVING_STEP = 0.001;
 
     private final TransportRepository transportRepository;
 

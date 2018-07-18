@@ -18,6 +18,11 @@ class TransportZoneEventTypeHolder {
     // transport id -> [zone id -> status]
     private Map<Integer, Map<Integer, EventType>> map = new ConcurrentHashMap<>();
 
+    /*
+    true - if last event same
+    false - if event new
+    also return true for EXIT event if it first, so its means don`t create event in db
+     */
     boolean isLastEventSame(int transportId, int zoneId, EventType eventType) {
         if (!map.containsKey(transportId)) {
             if (eventType == EventType.EXIT) {
