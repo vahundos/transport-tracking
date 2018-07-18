@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -19,11 +20,14 @@ public class Event extends AbstractBaseEntity {
     private LocalDateTime date;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private EventType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
     private Zone zone;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
     private Transport transport;
 }

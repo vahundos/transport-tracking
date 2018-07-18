@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @AllArgsConstructor
@@ -15,6 +16,7 @@ import javax.validation.constraints.Positive;
 @Table(name = "zones")
 public class Zone extends AbstractBaseEntity {
 
+    @NotNull
     private Location location;
 
     @Positive
