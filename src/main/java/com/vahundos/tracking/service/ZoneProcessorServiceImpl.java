@@ -1,9 +1,6 @@
 package com.vahundos.tracking.service;
 
 import com.vahundos.tracking.entity.*;
-import com.vahundos.tracking.repository.EventRepository;
-import com.vahundos.tracking.repository.TransportRepository;
-import com.vahundos.tracking.repository.ZoneRepository;
 import com.vahundos.tracking.utils.Haversine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,27 +16,27 @@ public class ZoneProcessorServiceImpl implements ZoneProcessorService {
 
     private static final Logger log = LoggerFactory.getLogger(ZoneProcessorServiceImpl.class);
 
-    private final ZoneRepository zoneRepository;
+    private final ZoneService zoneService;
 
-    private final TransportRepository transportRepository;
+    private final TransportService transportService;
 
-    private final EventRepository eventRepository;
+    private final EventService eventService;
 
     // transport id -> last event type
     private final TransportZoneEventTypeHolder holder = new TransportZoneEventTypeHolder();
 
     @Autowired
-    public ZoneProcessorServiceImpl(ZoneRepository zoneRepository, TransportRepository transportRepository, EventRepository eventRepository) {
-        this.zoneRepository = zoneRepository;
-        this.transportRepository = transportRepository;
-        this.eventRepository = eventRepository;
+    public ZoneProcessorServiceImpl(ZoneService zoneService, TransportService transportService, EventService eventService) {
+        this.zoneService = zoneService;
+        this.transportService = transportService;
+        this.eventService = eventService;
     }
 
     @Override
     @Transactional
     public void checkTracksPositions() {
-        List<Transport> transportList = transportRepository.findAll();
-        List<Zone> zones = zoneRepository.findAll();
+        List<Transport> transportList = transportService.getAll();
+        List<Zone> zones = zoneService.getAll();
         for (Transport transport : transportList) {
             for (Zone zone : zones) {
                 EventType eventType;
@@ -55,7 +52,7 @@ public class ZoneProcessorServiceImpl implements ZoneProcessorService {
                     event.setType(eventType);
                     event.setTransport(transport);
                     event.setZone(zone);
-                    Event save = eventRepository.save(event);
+                    Event save = eventService.create(event);
                     log.debug("created event {}", save);
                 }
             }

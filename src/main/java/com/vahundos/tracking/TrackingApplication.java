@@ -9,12 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 @SpringBootApplication
 @EnableScheduling
+@EnableCaching
 public class TrackingApplication {
 
     private static final Logger log = LoggerFactory.getLogger(TrackingApplication.class);
@@ -31,8 +33,8 @@ public class TrackingApplication {
 
     @Scheduled(fixedRate = 5000, initialDelay = 5000)
     public void moveTransport() {
-        log.debug("transport moved");
         transportMovingService.move();
+        log.debug("transport moved");
         zoneProcessorService.checkTracksPositions();
     }
 

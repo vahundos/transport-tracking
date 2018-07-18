@@ -2,6 +2,7 @@ package com.vahundos.tracking.service;
 
 import com.vahundos.tracking.entity.Event;
 import com.vahundos.tracking.repository.EventRepository;
+import com.vahundos.tracking.utils.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,12 @@ public class EventServiceImpl implements EventService {
     @Autowired
     public EventServiceImpl(EventRepository repository) {
         this.repository = repository;
+    }
+
+    @Override
+    public Event create(Event event) {
+        ValidationUtils.validateForCreation(event);
+        return repository.save(event);
     }
 
     @Override

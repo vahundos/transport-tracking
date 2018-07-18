@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface EventService {
 
+    Event create(Event event);
+
     List<Event> getAll();
 
     List<Event> getAllByTransportId(int transportId);
