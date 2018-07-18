@@ -28,6 +28,8 @@
         <webjars-jquery.version>3.3.1</webjars-jquery.version>
         <webjars-datatables.version>1.10.19</webjars-datatables.version>
         <webjars-datatables-buttons.version>1.4.2</webjars-datatables-buttons.version>
+
+        <sonar-maven-plugin.version>3.4.1.1168</sonar-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -126,6 +128,12 @@
                     <artifactId>bootstrap</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>${sonar-maven-plugin.version}</version>
         </dependency>
     </dependencies>
 
