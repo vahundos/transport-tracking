@@ -2,7 +2,6 @@ package com.vahundos.tracking.service;
 
 import com.vahundos.tracking.entity.Location;
 import com.vahundos.tracking.entity.Transport;
-import com.vahundos.tracking.repository.TransportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,24 +15,24 @@ public class MockTransportMovingService implements TransportMovingService {
 
     static final double MOVING_STEP = 0.001;
 
-    private final TransportRepository transportRepository;
+    private final TransportService transportService;
 
     @Autowired
-    public MockTransportMovingService(TransportRepository transportRepository) {
-        this.transportRepository = transportRepository;
+    public MockTransportMovingService(TransportService transportService) {
+        this.transportService = transportService;
     }
 
     @Override
     @Transactional
     public void move() {
-        List<Transport> transportList = transportRepository.findAll();
+        List<Transport> transportList = transportService.getAll();
         for (Transport transport : transportList) {
             Location curLocation = transport.getLocation();
             transport.setLocation(new Location(getNewDoubleBasedOn(curLocation.getLatitude()),
                     getNewDoubleBasedOn(curLocation.getLongitude())));
         }
 
-        transportRepository.saveAll(transportList);
+        transportService.updateAll(transportList);
     }
 
     private double getNewDoubleBasedOn(double oldValue) {

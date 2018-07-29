@@ -12,4 +12,12 @@ public class ValidationUtils {
             throw new IllegalArgumentException("Cant create transport with existing ID = " + entity.getId());
         }
     }
+
+    public static void validateForUpdate(Iterable<? extends AbstractBaseEntity> iterable) {
+        iterable.forEach(entity -> {
+            if (entity.getId() == null) {
+                throw new IllegalArgumentException("Cant update not existing entity = " + entity);
+            }
+        });
+    }
 }

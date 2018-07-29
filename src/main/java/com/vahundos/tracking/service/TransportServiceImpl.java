@@ -31,4 +31,10 @@ public class TransportServiceImpl implements TransportService {
         ValidationUtils.validateForCreation(transport);
         return repository.save(transport);
     }
+
+    @Override
+    public List<Transport> updateAll(Iterable<Transport> iterable) {
+        ValidationUtils.validateForUpdate(iterable);
+        return repository.saveAll(iterable);
+    }
 }

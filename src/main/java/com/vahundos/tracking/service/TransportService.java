@@ -9,4 +9,6 @@ public interface TransportService {
     List<Transport> getAll();
 
     Transport create(Transport transport);
+
+    List<Transport> updateAll(Iterable<Transport> iterable);
 }
